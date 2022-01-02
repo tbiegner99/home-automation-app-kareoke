@@ -4,11 +4,10 @@ import songs from './songs.json';
 
 import styles from './catalog.css';
 
-
 class Catalog extends React.Component {
   componentWillMount() {
     const byArtist = {};
-    const byTitle = {};
+    // const byTitle = {};
     songs.forEach((element) => {
       const artistIndexChar = element.artist.charAt(0).toUpperCase();
       if (!byArtist[artistIndexChar]) {
@@ -22,7 +21,7 @@ class Catalog extends React.Component {
     this.byArtist = byArtist;
   }
 
-  renderArtist(artist, songs) {
+  renderArtist(artist /* songs */) {
     return [
       <H3>{artist}</H3>,
       ...songs.map((el) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Catalog from './catalog/Catalog';
 import PlaylistManager from './playlistManager/ReduxPlaylistManager';
@@ -44,10 +44,7 @@ class Kareoke extends React.Component {
     return (
       <Router>
         <div className={styles.kareokePage}>
-          <NavBar
-            onHamburgerClick={() => this.openSideMenu()}
-            onHomeClick={onHomeClick}
-          />
+          <NavBar onHamburgerClick={() => this.openSideMenu()} onHomeClick={onHomeClick} />
           <SideMenu open={this.state.sideMenuOpen} onClose={() => this.closeSideMenu()}>
             <PlaylistMenu
               playlist={playlist}
@@ -84,31 +81,38 @@ const mapDispatchToProps = () => ({
   onFetchPlaylistChanges: async () => {
     try {
       await PlaylistActionCreator.getPlaylistItems();
-    } catch (err) {}
+    } catch (err) {
+      // TODO:
+    }
   },
   onClearPlaylist: async () => {
     try {
       await PlaylistActionCreator.clearPlaylist();
-    } catch (err) {}
+    } catch (err) {
+      // TODO:
+    }
   },
   onDeletePlaylistItem: async (item) => {
     try {
       await PlaylistActionCreator.deletePlaylistItem(item);
-    } catch (err) {}
+    } catch (err) {
+      // TODO:
+    }
   },
   onMoveItemDown: async (item) => {
     try {
       await PlaylistActionCreator.moveItemDown(item);
-    } catch (err) {}
+    } catch (err) {
+      // TODO:
+    }
   },
   onMoveItemUp: async (item) => {
     try {
       await PlaylistActionCreator.moveItemUp(item);
-    } catch (err) {}
+    } catch (err) {
+      // TODO:
+    }
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Kareoke);
+export default connect(mapStateToProps, mapDispatchToProps)(Kareoke);

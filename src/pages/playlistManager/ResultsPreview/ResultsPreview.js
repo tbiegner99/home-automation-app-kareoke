@@ -21,7 +21,7 @@ const renderTitle = (title, searchValue) =>
   !title ? null : <div>{emboldenSearchValue(searchValue, title)}</div>;
 const renderArtist = (artist, searchValue) => renderTitle(artist, searchValue);
 
-const toRenderedItem = (item, searchValue, onAdd) => (
+const toRenderedItem = (item, searchValue /* , onAdd */) => (
   <div className={styles.item}>
     <section>
       {renderTitle(item.title || item.artist, searchValue)}

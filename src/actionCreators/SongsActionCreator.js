@@ -1,4 +1,4 @@
-import { BaseActionCreator } from '@tbiegner99/home-automation-app-helpers';
+import { BaseActionCreator } from '@tbiegner99/ui-app-components';
 import SongsDatasource from '../datasource/SongsDatasource';
 import SongsEvents from '../events/SongsEvents';
 

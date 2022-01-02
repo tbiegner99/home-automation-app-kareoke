@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { H3, ListItem, List } from '@tbiegner99/home-automation-components';
 
