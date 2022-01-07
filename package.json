@@ -1,7 +1,7 @@
 {
-  "name": "@tbiegner99/home-automation-app-home",
+  "name": "@tbiegner99/home-automation-app-kareoke",
   "version": "1.0.0",
-  "description": "kareoke app",
+  "description": "micro frun end that is independently deployable. A kareoke system frontend to pair with RTSP server",
   "main": "lib/index.js",
   "directories": {
     "lib": "src"

@@ -1,16 +1,17 @@
 const path = require('path');
+const packageJSON = require('./package.json');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => {
   const { buildMode } = env;
   return {
     devtool: 'source-map',
-    mode: 'development',
+    mode: 'production',
     entry: buildMode === 'standalone' ? './src/standalone.js' : './src/index.js',
     output: {
       filename: 'kareoke.[contenthash].bundle.js',
       libraryTarget: 'system',
-      path: path.resolve(__dirname, 'build'),
+      path: path.resolve(__dirname, 'build', process.env.OUTPUTDIR || ''),
       publicPath: '/'
     },
 
@@ -43,7 +44,7 @@ module.exports = (env) => {
       }, */
         {
           test: /\.(png|jpe?g|svg|gif|eot|woff2?|ttf)$/i,
-          exclude: [path.resolve(__dirname, 'node_modules/@fortawesome/fontawesome-free/svgs')],
+          // exclude: [path.resolve(__dirname, 'node_modules/@fortawesome/fontawesome-free/svgs')],
           use: [
             {
               loader: 'file-loader'
