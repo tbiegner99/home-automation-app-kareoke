@@ -1,5 +1,4 @@
 const path = require('path');
-const packageJSON = require('./package.json');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => {
@@ -11,7 +10,7 @@ module.exports = (env) => {
     output: {
       filename: 'kareoke.[contenthash].bundle.js',
       libraryTarget: 'system',
-      path: path.resolve(__dirname, 'build', process.env.OUTPUTDIR || ''),
+      path: path.resolve(__dirname, 'build', process.env.OUTDIR || ''),
       publicPath: '/'
     },
 
