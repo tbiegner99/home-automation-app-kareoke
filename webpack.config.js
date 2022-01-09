@@ -8,7 +8,7 @@ module.exports = (env) => {
     mode: 'production',
     entry: buildMode === 'standalone' ? './src/standalone.js' : './src/index.js',
     output: {
-      filename: 'kareoke.[contenthash].bundle.js',
+      filename: 'kareoke-app.js',
       libraryTarget: 'system',
       path: path.resolve(__dirname, 'build', process.env.OUTDIR || ''),
       publicPath: '/'
