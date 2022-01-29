@@ -13,7 +13,7 @@ module.exports = (env) => {
       path: path.resolve(__dirname, 'build', process.env.OUTDIR || ''),
       publicPath: '/'
     },
-
+    externals: ['react', 'react-dom'],
     devServer: {
       hot: true,
       host: '0.0.0.0',
