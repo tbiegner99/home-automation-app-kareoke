@@ -13,7 +13,7 @@ module.exports = (env) => {
       path: path.resolve(__dirname, 'build', process.env.OUTDIR || ''),
       publicPath: '/'
     },
-    externals: ['react', 'react-dom'],
+    externals: ['react', 'react-dom', '@tbiegner99/home-automation-components'],
     devServer: {
       hot: true,
       host: '0.0.0.0',
