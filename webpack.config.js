@@ -5,7 +5,7 @@ module.exports = (env) => {
   const { buildMode } = env;
   return {
     devtool: 'source-map',
-    mode: 'production',
+    mode: 'development',
     entry: buildMode === 'standalone' ? './src/standalone.js' : './src/index.js',
     output: {
       filename: 'kareoke-app.js',
@@ -17,7 +17,7 @@ module.exports = (env) => {
     devServer: {
       hot: true,
       host: '0.0.0.0',
-      port: 8002,
+      port: 8003,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
