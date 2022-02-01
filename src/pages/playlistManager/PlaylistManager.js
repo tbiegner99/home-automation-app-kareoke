@@ -1,6 +1,13 @@
 import React from 'react';
-import { H3, Modal } from '@tbiegner99/home-automation-components';
-import { Form, Button, RadioButton, InputGroup, TextInput } from '@tbiegner99/react-forms';
+import {
+  H3,
+  Modal,
+  Form,
+  Button,
+  RadioButton,
+  InputGroup,
+  TextInput
+} from '@tbiegner99/home-automation-components';
 import ResultsPreview from './ResultsPreview/ResultsPreview';
 import FullResults from './FullResults/FullResults';
 
