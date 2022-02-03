@@ -5,7 +5,6 @@ import Catalog from './catalog/Catalog';
 import PlaylistManager from './playlistManager/ReduxPlaylistManager';
 import styles from './kareoke.css';
 import Urls from '../utils/Urls';
-import NavBar from './navs/NavBar';
 import SideMenu from './navs/SideMenu';
 import PlaylistMenu from './navs/PlaylistMenu';
 import PlaylistActionCreator from '../actionCreators/PlaylistActionCreator';
@@ -38,13 +37,11 @@ class Kareoke extends React.Component {
       onMoveItemDown,
       onMoveItemUp,
       onFetchPlaylistChanges,
-      onHomeClick,
       shouldHandleDefaultRoute
     } = this.props;
     return (
       <Router>
         <div className={styles.kareokePage}>
-          <NavBar onHamburgerClick={() => this.openSideMenu()} onHomeClick={onHomeClick} />
           <SideMenu open={this.state.sideMenuOpen} onClose={() => this.closeSideMenu()}>
             <PlaylistMenu
               playlist={playlist}
