@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  H3,
+  H2,
   Modal,
   Form,
-  Button,
-  RadioButton,
-  InputGroup,
-  TextInput
+  PrimaryButton,
+  TextInput,
+  HiddenField
 } from '@tbiegner99/home-automation-components';
 import ResultsPreview from './ResultsPreview/ResultsPreview';
 import FullResults from './FullResults/FullResults';
@@ -88,29 +87,26 @@ class PlaylistManager extends React.Component {
   render() {
     return (
       <main>
-        <H3>Add Song To Playlist</H3>
-        <Form onSubmit={(data) => this.fullSearch(data)}>
-          <div className={styles.searchBox}>
-            <TextInput
-              name="searchText"
-              value={this.state.value}
-              onChange={(value) => this.changeSearchText(value)}
-              onFocus={() => this.setState({ showResults: true })}
-              onBlur={() => this.setState({ showResults: false })}
-            />
-            <Button submittable>Search</Button>
-          </div>
+        <section className={styles.searchHeader}>
+          <H2 className={styles.header}>Add Song To Playlist</H2>
+          <Form onSubmit={(data) => this.fullSearch(data)}>
+            <div className={styles.searchBox}>
+              <div className={styles.searchBoxInput}>
+                <TextInput
+                  name="searchText"
+                  value={this.state.value}
+                  onChange={(value) => this.changeSearchText(value)}
+                  onFocus={() => this.setState({ showResults: true })}
+                  onBlur={() => this.setState({ showResults: false })}
+                />
+              </div>
+              <PrimaryButton submittable>Search</PrimaryButton>
+            </div>
 
-          <div>
-            <InputGroup value="exact" name="searchMode">
-              <RadioButton checkedValue="exact">Exact</RadioButton>
-              <RadioButton defaultSelected checkedValue="startsWith">
-                Starts With
-              </RadioButton>
-            </InputGroup>
-          </div>
-          {this.renderResults()}
-        </Form>
+            <HiddenField name="searchMode" value="startsWith" />
+          </Form>
+        </section>
+        {this.renderResults()}
         <section>
           <FullResults onAdd={(song) => this.onAddSong(song)} results={this.props.searchResults} />
         </section>

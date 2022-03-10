@@ -1,6 +1,5 @@
 import React from 'react';
-import { SlideInMenu, MenuItem } from '@tbiegner99/home-automation-components';
-import { CloseIcon } from '../../icons/Icons';
+import { SlideInMenu, MenuItem, CloseIcon } from '@tbiegner99/home-automation-components';
 import styles from './sideMenu.css';
 
 const SideMenu = (props) => {

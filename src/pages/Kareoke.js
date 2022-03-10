@@ -15,6 +15,15 @@ class Kareoke extends React.Component {
     this.state = {
       sideMenuOpen: false
     };
+    this.openSideMenu = this.openSideMenu.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('show-playlist', this.openSideMenu);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('show-playlist', this.openSideMenu);
   }
 
   openSideMenu() {

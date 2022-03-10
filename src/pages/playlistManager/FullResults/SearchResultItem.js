@@ -1,7 +1,7 @@
 import React from 'react';
 import combineClasses from 'classnames';
-import { H2 } from '@tbiegner99/home-automation-components';
-import { AddIcon, OpenDrawer, CloseDrawer } from '../../../icons/Icons';
+import { H2, AddIcon, MoveDownIcon, MoveUpIcon } from '@tbiegner99/home-automation-components';
+
 import styles from './SearchResultItem.css';
 
 const AddButton = (props) => (
@@ -103,7 +103,7 @@ class Sources extends React.Component {
     return (
       <section>
         <div className={styles.sourcesHeader} onClick={() => this.toggleOpen()}>
-          <div className={styles.drawerIcon}>{isOpen ? <CloseDrawer /> : <OpenDrawer />}</div>
+          <div className={styles.drawerIcon}>{isOpen ? <MoveUpIcon /> : <MoveDownIcon />}</div>
           <H2>Choose Other Source</H2>
         </div>
         <AdditionalSources song={song} sources={song.sources} isOpen={isOpen} onAdd={onAdd} />

@@ -13,7 +13,7 @@ DispatcherFactory.setDispatchingStrategy(store);
 
 const Main = (props) => (
   <Provider store={store}>
-    <KareokeMain {...props} />
+    <KareokeMain shouldHandleDefaultRoute {...props} />
   </Provider>
 );
 
@@ -27,6 +27,46 @@ const reactLifecycles = singleSpaReact({
   }
 });
 
+const navConfig = [
+  {
+    type: 'action',
+    icon: 'hamburger',
+    event: 'show-playlist'
+  }
+];
+
+const setupNav = () => {
+  const evt = new CustomEvent('nav-update', { detail: { config: navConfig } });
+  window.dispatchEvent(evt);
+};
+
+const clearNav = () => {
+  const evt = new CustomEvent('nav-clear');
+  window.dispatchEvent(evt);
+};
+
+const navMountListener = () => {
+  setupNav();
+};
+
+const listenForNavMount = () => {
+  window.addEventListener('nav-mounted', navMountListener);
+};
+
+const cleanupNavListener = () => {
+  window.removeEventListener('nav-mounted', navMountListener);
+};
+
 export const bootstrap = reactLifecycles.bootstrap;
-export const mount = reactLifecycles.mount;
-export const unmount = reactLifecycles.unmount;
+export const mount = (props) => {
+  setupNav();
+  listenForNavMount();
+
+  return reactLifecycles.mount(props);
+};
+
+export const unmount = async (props) => {
+  clearNav();
+  cleanupNavListener();
+  return reactLifecycles.unmount(props);
+};
