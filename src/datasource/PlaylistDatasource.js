@@ -2,6 +2,8 @@ import { BaseDatasource } from '@tbiegner99/ui-app-components';
 import PlaylistSerializer from './serializers/PlaylistSerializer';
 
 const DEFAULT_PLAYLIST_ID = 1;
+const SKIP_CURRENT_ITEM = `/stream/skipCurrent`;
+const GET_CURRENT_ITEM = `/stream/currentItem`;
 const GET_PLAYLIST_ITEMS = `/playlist/${DEFAULT_PLAYLIST_ID}/items`;
 const ENQUEUE_ITEM = `/playlist/${DEFAULT_PLAYLIST_ID}/items`;
 const deletePlaylistItemUrl = (position) => `/playlist/${DEFAULT_PLAYLIST_ID}/items/${position}`;
@@ -9,6 +11,20 @@ const CLEAR_PLAYLIST = `/playlist/${DEFAULT_PLAYLIST_ID}`;
 const moveUrl = (position) => `/playlist/${DEFAULT_PLAYLIST_ID}/items/${position}`;
 
 class PlaylistDatasource extends BaseDatasource {
+  async skipCurrentItem() {
+    const url = SKIP_CURRENT_ITEM;
+    await this.client.post(url);
+  }
+
+  async getCurrentPlayingItem() {
+    const url = GET_CURRENT_ITEM;
+    const results = await this.client.get(url);
+    if (results.status === 204) {
+      return null;
+    }
+    return PlaylistSerializer.fromCurrentItemResponse(results.data);
+  }
+
   async getPlaylistItems() {
     const url = this.constructUrl(GET_PLAYLIST_ITEMS);
     const results = await this.client.get(url);

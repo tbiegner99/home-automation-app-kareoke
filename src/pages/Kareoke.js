@@ -41,11 +41,14 @@ class Kareoke extends React.Component {
   render() {
     const {
       onDeletePlaylistItem,
+      onSkipCurrentItem,
       onClearPlaylist,
       playlist,
+      currentlyPlayingItem,
       onMoveItemDown,
       onMoveItemUp,
       onFetchPlaylistChanges,
+      onFetchCurrentItemChanges,
       shouldHandleDefaultRoute
     } = this.props;
     return (
@@ -54,7 +57,10 @@ class Kareoke extends React.Component {
           <SideMenu open={this.state.sideMenuOpen} onClose={() => this.closeSideMenu()}>
             <PlaylistMenu
               playlist={playlist}
+              onSkipCurrentItem={onSkipCurrentItem}
+              currentlyPlayingItem={currentlyPlayingItem}
               onFetchPlaylistChanges={onFetchPlaylistChanges}
+              onFetchCurrentItemChanges={onFetchCurrentItemChanges}
               onDeleteItem={onDeletePlaylistItem}
               onClearPlaylist={onClearPlaylist}
               onMoveItemDown={onMoveItemDown}
@@ -77,16 +83,32 @@ class Kareoke extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  playlist: state.playlist.store.playlistData.value
+  playlist: state.playlist.store.playlistData.value,
+  currentlyPlayingItem: state.playlist.store.currentlyPlaying.value
 });
 
 const mapDispatchToProps = () => ({
   onChangeUrl: (url) => {
     PlaylistActionCreator.changeUrl(url);
   },
+
+  onSkipCurrentItem: async () => {
+    try {
+      await PlaylistActionCreator.skipCurrentItem();
+    } catch (err) {
+      // TODO:
+    }
+  },
   onFetchPlaylistChanges: async () => {
     try {
       await PlaylistActionCreator.getPlaylistItems();
+    } catch (err) {
+      // TODO:
+    }
+  },
+  onFetchCurrentItemChanges: async () => {
+    try {
+      await PlaylistActionCreator.getCurrentPlayingItem();
     } catch (err) {
       // TODO:
     }

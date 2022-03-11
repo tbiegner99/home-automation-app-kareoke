@@ -6,7 +6,12 @@ class PlaylistStore extends AbstractReducingStore {
   constructor() {
     super();
     this.data = {
-      playlistData: new StoreField('playlistData', null, this.getPlaylistData.bind(this))
+      playlistData: new StoreField('playlistData', null, this.getPlaylistData.bind(this)),
+      currentlyPlaying: new StoreField(
+        'currentlyPlaying',
+        null,
+        this.getCurrentlyPlayingItem.bind(this)
+      )
     };
   }
 
@@ -14,12 +19,23 @@ class PlaylistStore extends AbstractReducingStore {
     return this.data.playlistData;
   }
 
+  get currentlyPlaying() {
+    return this.data.currentlyPlaying;
+  }
+
   getPlaylistData() {
     return PlaylistActionCreator.getPlaylistItems();
   }
 
+  getCurrentlyPlayingItem() {
+    return PlaylistActionCreator.getCurrentPlayingItem();
+  }
+
   handleEvent(action) {
     switch (action.type) {
+      case PlaylistEvents.CURRENT_ITEM_LOADED:
+        this.data.currentlyPlaying.value = action.data;
+        break;
       case PlaylistEvents.PLAYLIST_LOADED:
         this.data.playlistData.value = action.data;
         break;

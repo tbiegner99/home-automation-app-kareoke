@@ -1,27 +1,53 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { H3, ListItem, List } from '@tbiegner99/home-automation-components';
+import {
+  H3,
+  ListItem,
+  List,
+  StopIcon,
+  PrimaryButton
+} from '@tbiegner99/home-automation-components';
 
 import styles from './PlaylistMenu.css';
 
 const ClearPlaylistLink = (props) => {
   if (props.empty) return null;
   return (
-    <a className={styles.clearLink} onClick={props.onClick}>
+    <PrimaryButton className={styles.clearLink} onClick={props.onClick}>
       Clear Playlist
-    </a>
+    </PrimaryButton>
   );
 };
 const EmptyPlaylist = () => <div className={styles.emptyPlaylist}>No Items In Playlist</div>;
 
 class PlaylistMenu extends React.Component {
   componentDidMount() {
-    const { onFetchPlaylistChanges } = this.props;
+    const { onFetchPlaylistChanges, onFetchCurrentItemChanges } = this.props;
     this.pollPlaylist = setInterval(() => onFetchPlaylistChanges(), 5000);
+    this.pollCurrentItem = setInterval(() => onFetchCurrentItemChanges(), 5000);
   }
 
   componentWillUnmount() {
     clearInterval(this.pollPlaylist);
+    clearInterval(this.pollCurrentItem);
+  }
+
+  renderCurrentItem() {
+    const { currentlyPlayingItem, onSkipCurrentItem } = this.props;
+    if (!currentlyPlayingItem) {
+      return null;
+    }
+    return (
+      <section className={styles.nowPlaying}>
+        <H3 className={styles.playlistHeader}>Now Playing </H3>
+        <ListItem
+          title={currentlyPlayingItem.title}
+          onDelete={onSkipCurrentItem}
+          subtitle={currentlyPlayingItem.artist}
+          deleteIcon={<StopIcon />}
+        />
+      </section>
+    );
   }
 
   render() {
@@ -42,9 +68,12 @@ class PlaylistMenu extends React.Component {
     const playlistItems = isEmpty ? <EmptyPlaylist /> : playlist.map(toPlaylistItem);
     return (
       <div>
-        <H3 className={styles.playlistHeader}>Current Playlist</H3>
-        <List>{playlistItems}</List>
-        <ClearPlaylistLink empty={isEmpty} onClick={onClearPlaylist} />
+        {this.renderCurrentItem()}
+        <section>
+          <H3 className={styles.playlistHeader}>Current Playlist</H3>
+          <List>{playlistItems}</List>
+          <ClearPlaylistLink empty={isEmpty} onClick={onClearPlaylist} />
+        </section>
       </div>
     );
   }

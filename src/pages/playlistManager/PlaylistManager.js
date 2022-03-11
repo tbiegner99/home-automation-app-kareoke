@@ -93,6 +93,7 @@ class PlaylistManager extends React.Component {
             <div className={styles.searchBox}>
               <div className={styles.searchBoxInput}>
                 <TextInput
+                  autocomplete="off"
                   name="searchText"
                   value={this.state.value}
                   onChange={(value) => this.changeSearchText(value)}

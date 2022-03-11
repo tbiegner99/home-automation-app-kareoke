@@ -3,6 +3,27 @@ import PlaylistDatsource from '../datasource/PlaylistDatasource';
 import PlaylistEvents from '../events/PlaylistEvents';
 
 class PlaylistActionCreator extends BaseActionCreator {
+  async skipCurrentItem() {
+    try {
+      await PlaylistDatsource.skipCurrentItem();
+      this.dispatch({ type: PlaylistEvents.SKIP_ITEM_COMPLETE });
+    } catch (err) {
+      this.dispatch({ type: PlaylistEvents.SKIP_ITEM_ERROR, data: err });
+      throw err;
+    }
+  }
+
+  async getCurrentPlayingItem() {
+    try {
+      const item = await PlaylistDatsource.getCurrentPlayingItem();
+      this.dispatch({ type: PlaylistEvents.CURRENT_ITEM_LOADED, data: item });
+      return item;
+    } catch (err) {
+      this.dispatch({ type: PlaylistEvents.CURRENT_ITEM_LOAD_ERROR, data: err });
+      throw err;
+    }
+  }
+
   async getPlaylistItems() {
     try {
       const playlist = await PlaylistDatsource.getPlaylistItems();

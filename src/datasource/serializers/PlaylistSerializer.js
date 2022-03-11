@@ -13,6 +13,13 @@ class PlaylistSerializer {
     };
   }
 
+  fromCurrentItemResponse(item) {
+    return {
+      title: item.title,
+      artist: item.artist
+    };
+  }
+
   fromPlaylistResponse(playlist) {
     return playlist.map((item) => this.fromPlaylistItemResponse(item));
   }
